@@ -18,7 +18,7 @@ def parse_cookie_string(cookie_string):
 # Convert the cookie string to a dictionary
 COOKIE_PAYLOAD = parse_cookie_string(cookie_string)
 
-# Function to load restaurant names from a CSV file
+# Function to load restaurant names and ratings from a CSV file
 def load_restaurants(filename):
     df = pd.read_csv(filename)
     restaurants = df[['Name', 'Rating']].to_dict(orient='records')
@@ -62,7 +62,6 @@ def check_detailed_availability(restaurant_slug, date, reservation_token, cookie
             data = response.json()
             available_slots = []
 
-            # Filter based on guests_count if provided
             for operation, slots in data["data"]["grouped_online_stock_groups"].items():
                 for slot in slots:
                     if not guests_count or guests_count in slot["guests_count_option_values"]:
@@ -133,6 +132,7 @@ def main():
     guest_count = input("Enter the number of guests (leave blank if any number is fine): ")
     guests_count = int(guest_count) if guest_count else None
     year_month = f"{year}-{month.zfill(2)}"
+    operation_filter = input("Enter 'lunch', 'dinner', or leave blank for both: ").strip().lower()
 
     input_filename = 'test.csv'
     restaurants = load_restaurants(input_filename)
@@ -152,12 +152,13 @@ def main():
         tabelog_score = restaurant.get('Rating', 'N/A')
         output_data['Tabelog Score'].append(tabelog_score)
         output_data['Detail Page URL'].append(detail_url if detail_url else "N/A")
+
+        # Apply filter based on operation type if specified
+        if operation_filter:
+            available_slots = [slot for slot in available_slots if slot['operation'] == operation_filter]
         
-        formatted_slots = [f"{slot['date']} ({slot['operation']}): {slot['display_title']}" for slot in available_slots]
-        # Format each available slot with new lines for better readability
         formatted_slots = "\n".join([f"{slot['date']} ({slot['operation']}): {slot['display_title']}" for slot in available_slots])
         output_data['Available Slots'].append(formatted_slots if formatted_slots else "No Availability")
-
 
     output_filename = 'restaurant_availability.csv'
     output_df = pd.DataFrame(output_data)
