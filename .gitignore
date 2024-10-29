@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Environment variables file
+.env
+
+# macOS system files
+.DS_Store
+
+# Python-specific logs and temp files
+*.log
+*.sqlite3
+*.sqlite
+
+# Jupyter Notebook output
+*.ipynb
+
+# VS Code settings folder
+.vscode/
+
+# Cache files
+*.pyc
+__pycache__/
+*.pyo
+
+# PyCharm project settings
+.idea/
+
+# CSV and Excel files
+*.csv
+*.xls
+*.xlsx
+
+# Ignore any data and output files
+output/
+data/
+*.csv
+
+# Ignore the cookie.txt file to avoid sensitive info leaks
+cookie.txt
+
