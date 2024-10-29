@@ -134,7 +134,7 @@ def main():
     year_month = f"{year}-{month.zfill(2)}"
     operation_filter = input("Enter 'lunch', 'dinner', or leave blank for both: ").strip().lower()
 
-    input_filename = 'test.csv'
+    input_filename = 'tabelog_results.csv'
     restaurants = load_restaurants(input_filename)
 
     output_data = {
@@ -160,7 +160,7 @@ def main():
         formatted_slots = "\n".join([f"{slot['date']} ({slot['operation']}): {slot['display_title']}" for slot in available_slots])
         output_data['Available Slots'].append(formatted_slots if formatted_slots else "No Availability")
 
-    output_filename = 'restaurant_availability.csv'
+    output_filename = 'omakase_results.csv'
     output_df = pd.DataFrame(output_data)
     output_df.to_csv(output_filename, index=False)
     print(f"Availability data saved to {output_filename}")

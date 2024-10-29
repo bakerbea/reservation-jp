@@ -71,7 +71,7 @@ for restaurant in restaurants:
     print(restaurant)
 
 # Save results to CSV
-with open('test2.csv', mode='w', newline='', encoding='utf-8') as file:
+with open('tabelog_results.csv', mode='w', newline='', encoding='utf-8') as file:
     writer = csv.DictWriter(file, fieldnames=['Name', 'Rating'])
     writer.writeheader()
     for restaurant in restaurants:
